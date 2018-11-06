@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-const { textToFile, readFromFile } = require('./utils')
+const { textToFile, readFromFile, readAll } = require("./utils");
 const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
 
@@ -11,6 +11,10 @@ app.use(express.static('public'));
 //======================================
 // listeners
 //======================================
+app.get('/alltext', (req, res, next) => {
+    console.log('alltext');
+    readAll(data => res.send(data)); // console.log(`${data}` + " data");
+});
 
 app.post('/text', (req, res, next) => {
     //console.log(req.body.text);
