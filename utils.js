@@ -18,8 +18,11 @@ const readFromFile = (data) => { const sqlite3 = require('sqlite3');
 
 };
 
-const readAll = (data) => {
-
+const readAll = (callback) => {
+    db.all("SELECT * FROM NutritionFacts", (e, rows) => {
+        console.log(rows);
+        callback(rows)
+    });
 }
 
 module.exports = { textToFile, readFromFile, readAll};
