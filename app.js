@@ -16,6 +16,14 @@ app.get('/alltext', (req, res, next) => {
     readAll(data => res.send(data)); // console.log(`${data}` + " data");
 });
 
+
+app.post('/foodtext', (req, res, next) => {
+
+    console.log('foodtext', req.body.food);
+
+    readFromFile(req.body.food, d => res.send(d));
+});
+
 app.post('/text', (req, res, next) => {
     //console.log(req.body.text);
     textToFile(req.body.text, (word_reply) => { res.status(201).send(word_reply) });
