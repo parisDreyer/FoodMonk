@@ -12,7 +12,12 @@ const textToFile = (callback) => {
 
 const readFromFile = (fooditem, callback) => {
     console.log("scan food", fooditem);
-    db.all(`SELECT * FROM NutritionFacts WHERE Shrt_Descrpt LIKE "%${fooditem}%"`, (e, rows) => {
+    let food_arr = fooditem.split(" ");
+    let food_str = food_arr.length > 0 ? `Shrt_Descrpt LIKE "%${food_arr[0]}%"` : `Shrt_Descrpt LIKE ""`;
+    for(let i = 1; i < food_arr.length; ++i){
+        food_str += ` AND Shrt_Descrpt LIKE "%${food_arr[i]}%"`
+    }
+    db.all(`SELECT * FROM NutritionFacts WHERE ${food_str}`, (e, rows) => {
 
         // console.log(e, rows);
         if (rows)
