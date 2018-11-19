@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="./reset.css" />
     <title>Food Monk</title>
 </head>
 <body>
+    <div class="content">
     What to eat based on what you've eaten
-    <button type="button" onclick="loadDoc()">Load Data</button>
+    <!-- <button type="button" onclick="loadDoc()">Load Data</button> -->
+
 
     <div id="text-display"></div>
+    <form id="input-box" onSubmit="return getFoodData()" method="">
+        <textarea id="food-text" type="text" value="" default="food"></textarea>
+        <input class="text-submit" type="submit" value="input food"/>
+    </form>
+
+    </div>
     <script type="text/javascript" src="./io_manager.js"></script>
 </body>
 </html>
