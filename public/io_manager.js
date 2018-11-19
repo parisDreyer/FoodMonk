@@ -11,8 +11,8 @@ function loadDoc() {
 
 
 function getFoodData() {
-    let food_text = document.getElementById("food-text").value;
-    console.log(food_text);
+    let food_text = document.getElementById("food-text").value.replace(/\n/gi, " ").replace(/  /gi, " ");
+
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function (e, res) {
         // if (this.readyState == 4 && this.status == 200) {
