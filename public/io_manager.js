@@ -10,8 +10,13 @@ function loadDoc() {
 }
 
 
-function getFoodData() {
-    let food_text = document.getElementById("food-text").value.replace(/\n/gi, " ").replace(/  /gi, " ");
+function getFoodData(stop_word_filter) {
+    let food_text = document
+      .getElementById("food-text")
+      .value.replace(/\n/gi, " ")
+      .replace(/  /gi, " ");
+
+    food_text = food_text.split(" ").filter(el => !stop_word_filter(el)).join(" ");
     document.getElementById("text-display").innerHTML += `<div class="user-input">${food_text}</div>`;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function (e, res) {
