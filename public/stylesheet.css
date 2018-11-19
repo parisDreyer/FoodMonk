@@ -46,3 +46,27 @@ input[type="submit"].text-submit:hover{
     overflow: scroll;
     word-break: break-word;
 }
+
+.user-input{
+    background-color: rgba(255, 241, 42, 0.781);
+    border-color: 2px solid black;
+    border-radius: 10px;
+    margin-right: 2px;
+    width: auto;
+    max-width: 200px;
+    padding: 4px;
+    /* margin: 2px; */
+    margin-left: auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.bot-input{
+    background-color: rgba(79, 255, 240, 0.747);
+    border-color: 2px solid black;
+    border-radius: 10px;
+    align-self: flex-start;
+    width: auto;
+    max-width: 200px;
+    padding: 4px;
+    margin: 2px;
+}
