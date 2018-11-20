@@ -22,9 +22,7 @@ const readFromFile = (fooditem, callback) => {
         food_str += ` AND Shrt_Descrpt LIKE "%${food_arr[i]}%"`
     }
     db.serialize(function() {
-        db.all(`SELECT * FROM NutritionFacts WHERE ${food_str} LIMIT 5`, (e, rows) => {
-
-            // console.log(e, rows);
+        db.all(`SELECT * FROM NutritionFacts WHERE ${food_str} LIMIT 15`, (e, rows) => {
             if (rows)
                 callback(rows);
             else

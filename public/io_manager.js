@@ -38,7 +38,7 @@ function xhrFoodReq(food){
             alreadyPosted = true;
 
             let items = JSON.parse(this.response);
-            console.log(items);
+
             let opts = "";
             for(let i = 0; i < items.length; ++i){
                 
@@ -63,8 +63,27 @@ function xhrFoodReq(food){
 }
 
 function assignFood(){
+
+    // get the chosen dish from session storage
     let choice = document.getElementById("chooseCurFood");
-    choice.parentElement.innerHTML = (`${window.localStorage.getItem(choice.selectedIndex)}`);
+    let chosen_food = JSON.parse(window.localStorage.getItem(choice.selectedIndex));
+
+    // get the session storage rdi data to update
+    let rdi = JSON.parse(sessionStorage.getItem("userDefaultNutritionTrack"));
+
+    // update the rdi then save back to sessionStorage
+    let keys = Object.keys(chosen_food);
+    for(let i = 0; i < keys.length; ++ i){
+        rdi[keys[i]] += chosen_food[keys[i]]; // update the given rdi values
+    }
+    // saving to sessionStorage
+    let current_nutrient_intake = JSON.stringify(rdi);
+    sessionStorage.setItem("userDefaultNutritionTrack", current_nutrient_intake);
+
+
+    // set the bot chat-output to the screen for the user to read
+    choice.parentElement.innerHTML = `You ate ${chosen_food.Shrt_Descrpt}.
+        Bringing your current nutritive intake for the day to: ${current_nutrient_intake}`;
     window.localStorage.clear();
 }
 
