@@ -38,6 +38,7 @@ function xhrFoodReq(food){
             alreadyPosted = true;
 
             let items = JSON.parse(this.response);
+            console.log(items);
             let opts = "";
             for(let i = 0; i < items.length; ++i){
                 
@@ -67,6 +68,4 @@ function assignFood(){
     window.localStorage.clear();
 }
 
-// function updateAll(data){
 
-// }
