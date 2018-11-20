@@ -7,15 +7,20 @@ const screen_input = (food_text, remove_stop_words) => {
     let st = [];    // holds the food words
     let r = [];     // holds the conversational words
     let has_should_or_could = false;
+    let eat = false;
     for(let i = 0; i < f.length; ++i){
         if (["is", "are", "what", "do", "you", "do", "your", "purpose"].includes(f[i]))
             r.push(f[i]);   // set conversational word
         else if (["should", "could"].includes(f[i])) has_should_or_could = true;
-        else
-            st.push(f[i])   // set food word
+        else if (f[i] === "eat") eat = true;
+        else st.push(f[i])   // set food word
     }
 
-    if (has_should_or_could) return {
+    if (has_should_or_could && eat) return {
+        type: 1,
+        text: "By default, I suggest that one could always eat vegetables. Spinach is a good choice for iron."
+    };
+    else if (has_should_or_could) return {
         type: 1,
         text: "You can ask me anything. What have you eaten today?"
     }
