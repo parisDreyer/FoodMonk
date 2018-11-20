@@ -7,19 +7,25 @@
     <link rel="stylesheet" type="text/css" href="./stylesheet.css"/>
     <link rel="stylesheet" type="text/css" href="./reset.css" />
     <title>Food Monk</title>
+
+
+    <script type="text/javascript" src="./io_manager.js"></script>
+    <script type="text/javascript" src="./stop_word_filter.js"></script>
+    <script type="text/javascript" src="./screen_user_input.js"></script>
+    <script type="text/javascript" src="./rdi_reference.js"></script>
 </head>
 <body>
     <div class="content">
-    <!-- <button type="button" onclick="loadDoc()">Load Data</button> -->
 
-
-    <div id="text-display"></div>
-    <form id="input-box" onSubmit="return getFoodData()" method="">
-        <textarea id="food-text" type="text" value="" default="food"></textarea>
-        <input class="text-submit" type="submit" value="input food"/>
-    </form>
+        <div id="text-display"></div>
+        <form id="input-box" 
+            onSubmit="return getFoodData((food) => screen_input(food, stopWordFilter))" 
+            method="">
+            <textarea id="food-text" type="text" value="" default="food"></textarea>
+            <input class="text-submit" type="submit" value="input food"/>
+        </form>
 
     </div>
-    <script type="text/javascript" src="./io_manager.js"></script>
+
 </body>
 </html>
