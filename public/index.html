@@ -20,7 +20,7 @@
 
         <div id="text-display"></div>
         <form id="input-box" 
-            onSubmit="return getFoodData((food) => screen_input(food, stopWordFilter))" 
+            onSubmit="return getFoodData((food, options) => screen_input(food, stopWordFilter, options))" 
             method="">
             <textarea id="food-text" type="text" value="" default="food"></textarea>
             <input class="text-submit" type="submit" value="input food"/>
