@@ -19,18 +19,18 @@ app.get('/alltext', (req, res, next) => {
 
 app.post('/foodtext', (req, res, next) => {
 
-    console.log('foodtext', req.body.food);
+    // console.log('foodtext', req.body.food);
 
-    readFromFile(req.body.food, d => res.send(d));
+    readFromFile(req.body.food, d => res.status(201).send(d));
 });
 
 app.post('/text', (req, res, next) => {
     //console.log(req.body.text);
-    textToFile(req.body.text, (word_reply) => { res.status(201).send(word_reply) });
+    textToFile(req.body.text, (word_reply) => res.status(201).send(word_reply));
 });
 
 app.post('/textappend', (req, res, next) => {
-    console.log(req.body.text);
+    // console.log(req.body.text);
     textToFile(req.body.text);
     res.status(201).send();
 });
