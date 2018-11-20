@@ -48,42 +48,53 @@
 
 };
 
-if (!window.sessionStorage.getItem("userDefaultNutritionTrack"))
-    window.sessionStorage.setItem("userDefaultNutritionTrack",
-        JSON.stringify({
-            Energ_Kcal: 0,
-            FA_Sat_g: 0,
-            FA_Poly_g: 0,
-            FA_Mono_g: 0,
-            Cholestrl_mg: 0,
-            Sodium_mg: 0,
-            Potassium_mg: 0,
-            Carbohydrt_g: 0,
-            Sugar_Tot_g: 0,
-            Fiber_TD_g: 0,
-            Protein_g: 0,
-            Vit_A_IU: 0,
-            Vit_C_mg: 0,
-            Choline_Tot_mg: 0,
-            Potassium_mg: 0,
-            Calcium_mg: 0,
-            Iron_mg: 0,
-            Niacin: 0,
-            Vit_B12_mcg: 0,
-            Vit_K_mcg: 0,
-            Zinc_mg: 0,
-            Copper_mg: 0,
-            Magnesium_mg: 0,
-            Manganese_mg: 0,
-            Water_g: 0,
-            Folate_Tot_mcg: 0,
-            Vit_B6_mg: 0,
-            Vit_D_mcg: 0,
-            Vit_E_mg: 0,
-            Selenium_mcg: 0,
-            Phosphorus_mg: 0,
-            Panto_Acid_mg: 0,
-            Riboflavin_mg: 0,
-            Thiamin_mg: 0
-        })
-    );
+// check if the last reset time of the nutrition tracking was >= 24 hours
+let udntst = window.sessionStorage.getItem("userDefaultNutritionTrackStartTime");
+if (
+  !window.sessionStorage.getItem("userDefaultNutritionTrack") ||
+    (udntst && Math.abs(new Date() - Date.parse(udntst)) / 3600000 >= 24)
+) {
+  window.sessionStorage.setItem(
+    "userDefaultNutritionTrackStartTime",
+    new Date().toString()
+  );
+  window.sessionStorage.setItem(
+    "userDefaultNutritionTrack",
+    JSON.stringify({
+      Energ_Kcal: 0,
+      FA_Sat_g: 0,
+      FA_Poly_g: 0,
+      FA_Mono_g: 0,
+      Cholestrl_mg: 0,
+      Sodium_mg: 0,
+      Potassium_mg: 0,
+      Carbohydrt_g: 0,
+      Sugar_Tot_g: 0,
+      Fiber_TD_g: 0,
+      Protein_g: 0,
+      Vit_A_IU: 0,
+      Vit_C_mg: 0,
+      Choline_Tot_mg: 0,
+      Potassium_mg: 0,
+      Calcium_mg: 0,
+      Iron_mg: 0,
+      Niacin: 0,
+      Vit_B12_mcg: 0,
+      Vit_K_mcg: 0,
+      Zinc_mg: 0,
+      Copper_mg: 0,
+      Magnesium_mg: 0,
+      Manganese_mg: 0,
+      Water_g: 0,
+      Folate_Tot_mcg: 0,
+      Vit_B6_mg: 0,
+      Vit_D_mcg: 0,
+      Vit_E_mg: 0,
+      Selenium_mcg: 0,
+      Phosphorus_mg: 0,
+      Panto_Acid_mg: 0,
+      Riboflavin_mg: 0,
+      Thiamin_mg: 0
+    })
+  );
+}

@@ -93,7 +93,8 @@ function assignFood(){
             onClick="showAndHide('nutrient-info-${t}', 'nutrient-info-button-${t}')">
             Show Current Nutrient Info
         </button>
-        <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden"><br/> Your current nutritive intake for the day is: <br/>${current_nutrient_intake}</div>`;
+        <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden">
+        <br/> Your current nutritive intake for the day is: <br/>${current_nutrient_intake}</div>`;
     window.localStorage.clear();
 }
 
