@@ -73,18 +73,42 @@ function assignFood(){
 
     // update the rdi then save back to sessionStorage
     let keys = Object.keys(chosen_food);
+    let current_nutrient_intake = "";       // this will be used to render nutrients if the user is interested
+
     for(let i = 0; i < keys.length; ++ i){
-        rdi[keys[i]] += chosen_food[keys[i]]; // update the given rdi values
+        if (rdi[keys[i]] || rdi[keys[i]] ===  0) {
+            rdi[keys[i]] += chosen_food[keys[i]]; // update the given rdi values
+            current_nutrient_intake += `${keys[i]}: ${rdi[keys[i]]}<br/>`;
+        }
     }
     // saving to sessionStorage
-    let current_nutrient_intake = JSON.stringify(rdi);
-    sessionStorage.setItem("userDefaultNutritionTrack", current_nutrient_intake);
+    sessionStorage.setItem("userDefaultNutritionTrack", JSON.stringify(rdi));
 
 
+    let t = currentDateString();
     // set the bot chat-output to the screen for the user to read
-    choice.parentElement.innerHTML = `You ate ${chosen_food.Shrt_Descrpt}.
-        Bringing your current nutritive intake for the day to: ${current_nutrient_intake}`;
+    choice.parentElement.innerHTML = `You ate ${chosen_food.Shrt_Descrpt} at ${t}. 
+        <br/><br/>
+        <button id="nutrient-info-button-${t}"
+            onClick="showAndHide('nutrient-info-${t}', 'nutrient-info-button-${t}')">
+            Show Current Nutrient Info
+        </button>
+        <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden"><br/> Your current nutritive intake for the day is: <br/>${current_nutrient_intake}</div>`;
     window.localStorage.clear();
+}
+
+function showAndHide(toShow, toHide) {
+    document.getElementById(toShow).classList.remove('hidden');
+    document.getElementById(toHide).classList.add('hidden');
+}
+function currentDateString(){
+    let currentdate = new Date();
+    return "Last Sync: " + currentdate.getDate() + "/"
+        + (currentdate.getMonth() + 1) + "/"
+        + currentdate.getFullYear() + " @ "
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes() + ":"
+        + currentdate.getSeconds();
 }
 
 
