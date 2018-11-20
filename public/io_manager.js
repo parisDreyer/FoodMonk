@@ -10,28 +10,39 @@ function loadDoc() {
 }
 
 
-function getFoodData(stop_word_filter) {
+function getFoodData(filter) {
     let food_text = document
       .getElementById("food-text")
       .value.replace(/\n/gi, " ")
       .replace(/  /gi, " ");
-    let alreadyPosted = false;
-    food_text = food_text.split(" ").filter(el => !stop_word_filter(el)).join(" ");
+    filtered = filter(food_text);
+    
+
+
     document.getElementById("text-display").innerHTML += `<div class="user-input">${food_text}</div>`;
+    if (filtered.type === 0) xhrFoodReq(filtered.text);
+    else document.getElementById("text-display").innerHTML += `<div class="bot-input">${filtered.text}</div>`;;
+    
+
+    return (false); // prevents vanilla html form refresh
+}
+
+
+function xhrFoodReq(food){
+    let alreadyPosted = false;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function (e, res) {
         // if (this.readyState == 4 && this.status == 200) {
-            // console.log(res);
-            if(this.response.length > 0 && !alreadyPosted){
-                alreadyPosted = true;
-                document.getElementById("text-display").innerHTML += `<div class="bot-input">${this.response}</div>`;//this.response;
-            }
+        // console.log(res);
+        if (this.response.length > 0 && !alreadyPosted) {
+            alreadyPosted = true;
+            document.getElementById("text-display").innerHTML += `<div class="bot-input">${this.response}</div>`;
         }
-        xhttp.open("POST", "foodtext", true);
+    }
+    xhttp.open("POST", "foodtext", true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    let params = { food: food_text};
+    let params = { food: food };
     xhttp.send(JSON.stringify(params));
-    return (false); // prevents vanilla html form refresh
 }
 
 // function updateAll(data){

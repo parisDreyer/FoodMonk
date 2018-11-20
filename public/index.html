@@ -14,7 +14,9 @@
 
 
     <div id="text-display"></div>
-    <form id="input-box" onSubmit="return getFoodData(stopWordFilter)" method="">
+    <form id="input-box" 
+        onSubmit="return getFoodData((food) => screen_input(food, stopWordFilter))" 
+        method="">
         <textarea id="food-text" type="text" value="" default="food"></textarea>
         <input class="text-submit" type="submit" value="input food"/>
     </form>
@@ -22,5 +24,6 @@
     </div>
     <script type="text/javascript" src="./io_manager.js"></script>
     <script type="text/javascript" src="./stop_word_filter.js"></script>
+    <script type="text/javascript" src="./screen_user_input.js"></script>
 </body>
 </html>
