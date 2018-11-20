@@ -11,10 +11,10 @@ function loadDoc() {
 
 
 function getFoodData(filter) {
-    let food_text = document
-      .getElementById("food-text")
-      .value.replace(/\n/gi, " ")
-      .replace(/  /gi, " ");
+    let ui = document.getElementById("food-text"); // handle on user input
+    let food_text = ui.value.replace(/\n/gi, " ").replace(/  /gi, " ");  // the text, taking out line breaks from textarea
+    ui.value = "";                  // clear the text so the user sees a change
+    
     filtered = filter(food_text);
 
     document.getElementById("text-display").innerHTML += `<div class="user-input">${food_text}</div>`;
@@ -47,8 +47,9 @@ function xhrFoodReq(food){
             }
             document.getElementById("text-display").innerHTML += `<div class="bot-input">
                 Which one was it?
+                <br/>
                 <select id="chooseCurFood">
-                ${opts}
+                    ${opts}
                 </select>
                 <button onClick="assignFood()">Choose</button>
             </div>`;
@@ -62,7 +63,7 @@ function xhrFoodReq(food){
 
 function assignFood(){
     let choice = document.getElementById("chooseCurFood");
-    choice.replaceWith(`<span>${window.localStorage.getItem(choice.selectedIndex)}</span>`);
+    choice.parentElement.innerHTML = (`${window.localStorage.getItem(choice.selectedIndex)}`);
     window.localStorage.clear();
 }
 

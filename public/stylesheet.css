@@ -8,8 +8,12 @@ body{
 }
 
 .content * {
-        background-color: silver;
-        border: 2px solid whitesmoke;
+        /* background-color: silver; */
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: serif;
 }
 #input-box {
     min-width: 100%;
@@ -25,19 +29,20 @@ body{
     padding-left: 10px;
     resize:none;
     width: 80%;
-    /* height: 42px; */
     border:none;
     border-right: 1px solid whitesmoke;
 }
 input[type="submit"].text-submit{
     width: 18%;
     height: 42px;
-    background-color: beige;
+    background-color: whitesmoke;
+    color: black;
     border: 1px groove whitesmoke;
 }
 input[type="submit"].text-submit:hover{
     cursor: pointer;
-    background-color: silver;
+    background-color: black;
+    color: rgba(245, 245, 245, 0.5);
     border-radius: 5px;
 }
 
@@ -49,7 +54,9 @@ input[type="submit"].text-submit:hover{
 }
 
 .user-input{
-    background-color: rgba(255, 241, 42, 0.781);
+    /* background-color: rgba(255, 241, 42, 0.781); */
+    background-color: whitesmoke;
+    color: black;
     border-color: 2px solid black;
     border-radius: 10px;
     margin-right: 2px;
@@ -62,7 +69,8 @@ input[type="submit"].text-submit:hover{
     margin-bottom: 2px;
 }
 .bot-input{
-    background-color: rgba(79, 255, 240, 0.747);
+    background-color: rgba(79, 255, 240, 1);
+    color: black;
     border-color: 2px solid black;
     border-radius: 10px;
     align-self: flex-start;
@@ -70,4 +78,22 @@ input[type="submit"].text-submit:hover{
     max-width: 600px;
     padding: 4px;
     margin: 2px;
+}
+.bot-input select {
+    color: black;
+    border-color: black;
+    width: 80%;
+    overflow-wrap: break-word;
+}
+.bot-input button {
+    height: 24px;
+    padding: 2px;
+    border-radius: 5px;
+    border: 2px solid black;
+    color: black;
+}
+.bot-input button:hover {
+    cursor: pointer;
+        background-color: black;
+    color: rgba(245, 245, 245, 0.5);
 }
