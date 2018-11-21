@@ -52,7 +52,7 @@
 let udntst = window.sessionStorage.getItem("userDefaultNutritionTrackStartTime");
 if (
   !window.sessionStorage.getItem("userDefaultNutritionTrack") ||
-    (udntst && Math.abs(new Date() - Date.parse(udntst)) / 3600000 >= 24)
+  (udntst && Math.abs(new Date() - Date.parse(udntst)) / 3600000 >= 24) // https://stackoverflow.com/questions/19225414/how-to-get-the-hours-difference-between-two-date-objects
 ) {
   window.sessionStorage.setItem(
     "userDefaultNutritionTrackStartTime",

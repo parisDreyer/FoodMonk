@@ -15,11 +15,15 @@ function getFoodData(filter) {
     let food_text = ui.value.replace(/\n/gi, " ").replace(/  /gi, " ");  // the text, taking out line breaks from textarea
     ui.value = "";                  // clear the text so the user sees a change
     
-    filtered = filter(food_text);
+    filtered = filter(food_text, botTextResponseOptions);
 
-    document.getElementById("text-display").innerHTML += `<div class="user-input">${food_text}</div>`;
+    //document.getElementById("text-display").innerHTML += `<div class="user-input">${food_text}</div>`;
+    appendToTextDisplay(`<div class="user-input">${food_text}</div>`);
     if (filtered.type === 0) xhrFoodReq(filtered.text);
-    else document.getElementById("text-display").innerHTML += `<div class="bot-input">${filtered.text}</div>`;;
+    else {
+        appendToTextDisplay(`<div class="bot-input">${filtered.text}</div>`);
+        //document.getElementById("text-display").innerHTML += `<div class="bot-input">${filtered.text}</div>`;
+    }
     
 
     return (false); // prevents vanilla html form refresh
@@ -46,14 +50,22 @@ function xhrFoodReq(food){
                 opts += `<option value="${i}">${items[i].Shrt_Descrpt}</option>`;
 
             }
-            document.getElementById("text-display").innerHTML += `<div class="bot-input">
+            appendToTextDisplay(`<div class="bot-input">
                 Which one was it?
                 <br/>
                 <select id="chooseCurFood">
                     ${opts}
                 </select>
                 <button onClick="assignFood()">Choose</button>
-            </div>`;
+            </div>`);
+            // document.getElementById("text-display").innerHTML += `<div class="bot-input">
+            //     Which one was it?
+            //     <br/>
+            //     <select id="chooseCurFood">
+            //         ${opts}
+            //     </select>
+            //     <button onClick="assignFood()">Choose</button>
+            // </div>`;
         }
     }
     xhttp.open("POST", "foodtext", true);
@@ -88,19 +100,15 @@ function assignFood(){
     let t = currentDateString();
     // set the bot chat-output to the screen for the user to read
     choice.parentElement.innerHTML = `You ate ${chosen_food.Shrt_Descrpt} at ${t}. 
-        <br/><br/>
-        <button id="nutrient-info-button-${t}"
-            onClick="showAndHide('nutrient-info-${t}', 'nutrient-info-button-${t}')">
-            Show Current Nutrient Info
-        </button>
-        <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden">
-        <br/> Your current nutritive intake for the day is: <br/>${current_nutrient_intake}</div>`;
+        <br/> <br/> ${botTextResponseOptions[2](t, current_nutrient_intake)}`;
     window.localStorage.clear();
 }
 
 function showAndHide(toShow, toHide) {
     document.getElementById(toShow).classList.remove('hidden');
     document.getElementById(toHide).classList.add('hidden');
+    let mainDiv = document.getElementById("text-display");
+    mainDiv.scrollTop = mainDiv.scrollHeight;
 }
 function currentDateString(){
     let currentdate = new Date();
@@ -112,4 +120,43 @@ function currentDateString(){
         + currentdate.getSeconds();
 }
 
+const botTextResponseOptions = {
+  2: (t = new Date().toString(), current_nutrient_intake = false) => {
+    if (!current_nutrient_intake) {
+      // retrieve the nutrition data for the user from session storage
+      current_nutrient_intake = ""; // this will be used to render nutrients if the user is interested
+      let rdi = JSON.parse(sessionStorage.getItem("userDefaultNutritionTrack"));
+      let keys = Object.keys(rdi);
 
+      for (let i = 0; i < keys.length; ++i) {
+        current_nutrient_intake += `${keys[i]}: ${rdi[keys[i]]}<br/>`;
+      }
+    }
+
+    return `<button id="nutrient-info-button-${t}"
+                onClick="showAndHide('nutrient-info-${t}', 'nutrient-info-button-${t}')">
+                Show Current Nutrient Info
+            </button>
+            <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden">
+            <br /> Your current nutritive intake for the day is: <br />${current_nutrient_intake}</div>`;
+  }
+};
+
+// appends text to the text-display div, then adjusts the scroll position for the div
+function appendToTextDisplay(text){
+    let mainDiv = document.getElementById("text-display")
+    mainDiv.innerHTML += text;
+
+    mainDiv.scrollTop = mainDiv.scrollHeight;
+    scrollToBottom(mainDiv);
+} function scrollToBottom(divEl) { divEl.scrollTop = divEl.scrollHeight;}
+
+
+
+{/* <br /> <br />
+    <button id="nutrient-info-button-${t}"
+        onClick="showAndHide('nutrient-info-${t}', 'nutrient-info-button-${t}')">
+        Show Current Nutrient Info
+        </button>
+    <div id="nutrient-info-${t}" style="color:black;border:none;" class="hidden">
+        <br /> Your current nutritive intake for the day is: <br />${current_nutrient_intake}</div> */}
