@@ -107,6 +107,8 @@ function assignFood(){
 function showAndHide(toShow, toHide) {
     document.getElementById(toShow).classList.remove('hidden');
     document.getElementById(toHide).classList.add('hidden');
+    let mainDiv = document.getElementById("text-display");
+    mainDiv.scrollTop = mainDiv.scrollHeight;
 }
 function currentDateString(){
     let currentdate = new Date();
@@ -144,9 +146,10 @@ const botTextResponseOptions = {
 function appendToTextDisplay(text){
     let mainDiv = document.getElementById("text-display")
     mainDiv.innerHTML += text;
-    debugger
+
     mainDiv.scrollTop = mainDiv.scrollHeight;
-}
+    scrollToBottom(mainDiv);
+} function scrollToBottom(divEl) { divEl.scrollTop = divEl.scrollHeight;}
 
 
 
